@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: deploy  
+      - id: deploy
         uses: google-github-actions/deploy-cloud-functions@main
         with:
           name: form-processing
           runtime: nodejs14
+          entry_point: main
+          region: europe-west3
           credentials: ${{ secrets.gcp_credentials }}
