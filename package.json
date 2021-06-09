@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@sendgrid/mail": "^7.4.4",
     "dotenv": "^10.0.0",
     "googleapis": "^75.0.0",
     "joi": "^17.4.0"

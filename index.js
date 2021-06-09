@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const Joi = require("joi");
 const { google } = require("googleapis");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const leadFormSchema = Joi.object({
   firstName: Joi.string().required(),
@@ -37,6 +39,22 @@ exports.main = async (req, res) => {
   try {
     const value = await leadFormSchema.validateAsync(body);
     const stuff = JSON.stringify(await addGoogleSheet(Object.values(body)));
+    await sgMail.send({
+      to: process.env.MAIL_TO,
+      replyTo: process.env.MAIL_REPLYTO,
+      from: {
+        email: "no-reply@erciyesenglish.com",
+        name: "Erciyes English",
+      },
+      subject: "New Lead",
+      text: `First Name: ${body.firstName} | Last Name: ${body.lastName} | Email: ${body.email}`,
+      html: `
+      <div>
+        <p>First Name: ${body.firstName}</p>
+        <p>Last Name: ${body.lastName}</p>
+        <p>Email: ${body.email}</p>
+      </div>`,
+    });
     return res.status(200).send(stuff);
   } catch (err) {
     return res.status(400).send(err);
