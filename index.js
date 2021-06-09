@@ -10,7 +10,7 @@ const leadFormSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
-exports.processForm = async (req, res) => {
+exports.main = async (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).end();
   }
