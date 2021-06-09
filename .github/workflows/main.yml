@@ -1,0 +1,16 @@
+name: Google Cloud Function Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: deploy  
+        uses: google-github-actions/deploy-cloud-functions@main
+        with:
+          name: form-processing
+          runtime: nodejs14
+          credentials: ${{ secrets.gcp_credentials }}
