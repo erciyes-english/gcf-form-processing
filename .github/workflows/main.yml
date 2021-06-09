@@ -15,4 +15,5 @@ jobs:
           runtime: nodejs14
           entry_point: main
           region: europe-west3
-          credentials: ${{ secrets.gcp_credentials }}
+          env_vars: GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }},SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }},MAIL_TO=${{ secrets.MAIL_TO }},MAIL_REPLYTO=${{ secrets.MAIL_REPLYTO }}
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
